@@ -2,8 +2,6 @@ import torch
 import torch.nn as nn
 
 
-torch.manual_seed(123)
-
 def loss(x,y,t):
     # Modulus of rigidity
     E = 10*(10**9)
