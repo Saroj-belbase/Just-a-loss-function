@@ -24,8 +24,8 @@ def loss(x,y,t):
 
     x_zeroes = torch.zeros_like(x)
     y_zeroes = torch.zeros_like(y)
-    X_max = 100*torch.ones_like(x)
-    Y_max = 100*torch.ones_like(y)
+    X_max = 1*torch.ones_like(x)
+    Y_max = 1*torch.ones_like(y)
 
     w = NeuralNetworks(torch.hstack((x, y, t)))   # w is the displacement
 
@@ -47,9 +47,9 @@ def loss(x,y,t):
     
     f = torch.mean((D*(d4w_dx4+d4w_dx2dy2+d4w_dy4)+rho*d2w_dt2)**2)
     g = NeuralNetworks(torch.hstack((x_zeroes, y, t)))
-    h = NeuralNetworks(torch.hstack((y_zeroes, y, t)))
+    h = NeuralNetworks(torch.hstack((x, y_zeroes, t)))
     l = NeuralNetworks(torch.hstack((X_max, y, t)))
-    m = NeuralNetworks(torch.hstack((Y_max, y, t)))
+    m = NeuralNetworks(torch.hstack((x, Y_max, t)))
 
     mse = torch.mean((g - 0)**2) + torch.mean((h - 0)**2) + torch.mean((l - 0)**2) + torch.mean((m - 0)**2)
     loss = f + mse
