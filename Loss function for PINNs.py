@@ -24,6 +24,7 @@ def loss(x,y,t):
 
     x_zeroes = torch.zeros_like(x)
     y_zeroes = torch.zeros_like(y)
+    T_zeroes = torch.zeros_like(y)
     X_max = 1*torch.ones_like(x)
     Y_max = 1*torch.ones_like(y)
 
@@ -50,8 +51,9 @@ def loss(x,y,t):
     h = NeuralNetworks(torch.hstack((X, y_zeroes, T)))
     l = NeuralNetworks(torch.hstack((X_max, Y, T)))
     m = NeuralNetworks(torch.hstack((X, Y_max, T)))
+    n = NeuralNetworks(torch.hstack((X,Y_max, T_zeroes))
 
-    mse = torch.mean((g - 0)**2) + torch.mean((h - 0)**2) + torch.mean((l - 0)**2) + torch.mean((m - 0)**2)
+    mse = torch.mean((g - 0)**2) + torch.mean((h - 0)**2) + torch.mean((l - 0)**2) + torch.mean((m - 0)**2) + torch.mean((n-0)**2)
     loss = f + mse
 
     return loss
